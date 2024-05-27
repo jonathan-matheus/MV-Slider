@@ -32,3 +32,22 @@ along with MV Slider. If not, see http://www.gnu.org/licenses/gpl-2.0.html
 if (!defined('ABSPATH')) {
     exit;
 }
+
+/**
+ * Classe principal do plugin com seu construtor
+ */
+if (!class_exists('MV_Slider')) {
+    class MV_Slider
+    {
+        function __construct()
+        {
+        }
+    }
+}
+
+/**
+ * Instancie a classe MV Slider
+ */
+if (class_exists('MV_Slider')) {
+    $mv_slider = new MV_Slider();
+}
