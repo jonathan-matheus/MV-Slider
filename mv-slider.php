@@ -41,6 +41,20 @@ if (!class_exists('MV_Slider')) {
     {
         function __construct()
         {
+            // Define as constantes para o plugin
+            $this->define_constants();
+        }
+
+        public function define_constants()
+        {
+            // Constante para o caminho absoluto do plugin
+            define('MV_SLIDER_PATH', plugin_dir_path(__FILE__));
+
+            // Constante para o caminho absoluto do URL do plugin
+            define('MV_SLIDER_URL', plugin_dir_url(__FILE__));
+
+            // Constante que define a versão do plugin
+            define('MV_SLIDER_VERSION', '1.0.0');
         }
     }
 }
