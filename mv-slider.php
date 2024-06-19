@@ -56,6 +56,18 @@ if (!class_exists('MV_Slider')) {
             // Constante que define a versão do plugin
             define('MV_SLIDER_VERSION', '1.0.0');
         }
+
+        public function activate()
+        {
+        }
+
+        public function deactivate()
+        {
+        }
+
+        public function uninstall()
+        {
+        }
     }
 }
 
@@ -63,5 +75,8 @@ if (!class_exists('MV_Slider')) {
  * Instancie a classe MV Slider
  */
 if (class_exists('MV_Slider')) {
+    register_activation_hook(__FILE__, ['MV_Slider', 'activate']);
+    register_deactivation_hook(__FILE__, ['MV_Slider', 'deactivate']);
+    register_uninstall_hook(__FILE__, ['MV_Slider', 'uninstall']);
     $mv_slider = new MV_Slider();
 }
