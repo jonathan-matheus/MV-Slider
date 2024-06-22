@@ -45,6 +45,16 @@ if (!class_exists('MV_Slider')) {
             $this->define_constants();
         }
 
+        /**
+         * Define as constantes do plugin.
+         *
+         * Esta função define três constantes:
+         * - MV_SLIDER_PATH: O caminho absoluto do plugin.
+         * - MV_SLIDER_URL: O URL absoluto do plugin.
+         * - MV_SLIDER_VERSION: A versão do plugin.
+         *
+         * @return void
+         */
         public function define_constants()
         {
             // Constante para o caminho absoluto do plugin
@@ -57,15 +67,34 @@ if (!class_exists('MV_Slider')) {
             define('MV_SLIDER_VERSION', '1.0.0');
         }
 
-        public function activate()
+        /**
+         * Ativa o plugin atualizando a opção de regras de reescrita.
+         *
+         * Esta função atualiza a opção 'rewrite_rules' definindo-a como uma 
+         * string vazia.
+         *
+         * @return void
+         */
+        public static function activate()
         {
+            update_option('rewrite_rules', '');
         }
 
-        public function deactivate()
+        /**
+         * Desativa o plugin, limpando as regras de redirecionamento.
+         *
+         * Esta função é responsável por desativar o plugin, limpando as regras 
+         * de redirecionamento. Certifica que quaisquer alterações feitas nas 
+         * regras de redirecionamento durante a ativação são limpas e aplicadas.
+         *
+         * @return void
+         */
+        public static function deactivate()
         {
+            flush_rewrite_rules();
         }
 
-        public function uninstall()
+        public static function uninstall()
         {
         }
     }
