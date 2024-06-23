@@ -43,6 +43,9 @@ if (!class_exists('MV_Slider')) {
         {
             // Define as constantes para o plugin
             $this->define_constants();
+
+            require_once MV_SLIDER_PATH . 'post-types/class.mv-slider-cpt.php';
+            $MV_Slider_Post_Type = new MV_Slider_Post_Type();
         }
 
         /**
