@@ -7,6 +7,10 @@ if (!class_exists('MV_Slider_Post_Type')) {
             add_action('init', [
                 $this, 'create_post_type'
             ]);
+
+            add_action('add_meta_boxes', [
+                $this, 'add_meta_boxes'
+            ]);
         }
 
         public function create_post_type()
@@ -40,6 +44,22 @@ if (!class_exists('MV_Slider_Post_Type')) {
                     'menu_icon' => 'dashicons-slides',
                 ]
             );
+        }
+
+        public function add_meta_boxes()
+        {
+            add_meta_box(
+                'mv_slider_meta_box',
+                'Link Options',
+                [$this, 'add_inner_meta_boxes'],
+                'mv-slider',
+                'normal',
+                'high'
+            );
+        }
+
+        public function add_inner_meta_boxes($post)
+        {
         }
     }
 }
