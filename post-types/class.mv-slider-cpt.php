@@ -75,8 +75,33 @@ if (!class_exists('MV_Slider_Post_Type')) {
         public function save_post($post_id)
         {
             if (isset($_POST['action']) && $_POST['action'] == 'editpost') {
-                update_post_meta($post_id, 'mv_slider_link_text', $_POST['mv_slider_link_text']);
-                update_post_meta($post_id, 'mv_slider_link_url', $_POST['mv_slider_link_url']);
+                if (empty($_POST['mv_slider_link_text'])) {
+                    update_post_meta(
+                        $post_id,
+                        'mv_slider_link_text',
+                        'Add some text'
+                    );
+                } else {
+                    update_post_meta(
+                        $post_id,
+                        'mv_slider_link_text',
+                        sanitize_text_field($_POST['mv_slider_link_text'])
+                    );
+                }
+
+                if (empty($_POST['mv_slider_link_url'])) {
+                    update_post_meta(
+                        $post_id,
+                        'mv_slider_link_url',
+                        '#'
+                    );
+                } else {
+                    update_post_meta(
+                        $post_id,
+                        'mv_slider_link_url',
+                        sanitize_text_field($_POST['mv_slider_link_url'])
+                    );
+                }
             }
         }
     }
