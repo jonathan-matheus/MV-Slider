@@ -7,6 +7,7 @@ $slider_url = isset($slider_url) ? $slider_url : '';
 ?>
 
 <table class="form-table mv-slider-metabox">
+    <input type="hidden" name="mv_slider_nonce" value="<?= wp_create_nonce('mv-slider-nonce') ?>">
     <tr>
         <th>
             <label for="mv_slider_link_text">Link Text</label>

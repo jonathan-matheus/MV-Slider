@@ -22,6 +22,9 @@ if (!class_exists('MV_Slider_Post_Type')) {
             );
         }
 
+        /**
+         * Registra o tipo de postagem personalizado para o slider.
+         */
         public function create_post_type()
         {
             register_post_type(
@@ -55,6 +58,11 @@ if (!class_exists('MV_Slider_Post_Type')) {
             );
         }
 
+        /**
+         * Adiciona uma caixa de metadados ao tipo de postagem 'mv-slider'.
+         *
+         * @return void
+         */
         public function add_meta_boxes()
         {
             add_meta_box(
@@ -67,13 +75,62 @@ if (!class_exists('MV_Slider_Post_Type')) {
             );
         }
 
+        /**
+         * Adiciona o conteúdo da caixa de metadados ao tipo de postagem 
+         * 'mv-slider'.
+         *
+         * @param datatype $post O objeto de postagem.
+         * @return void
+         */
         public function add_inner_meta_boxes($post)
         {
             require_once MV_SLIDER_PATH . 'views/mv-slider_metabox.php';
         }
 
+        /**
+         * Verifica se o nonce e valido, caso não seja valido, retorna(nada).
+         * 
+         * Verifica se o WordPress está realizando autosave, caso esteja, 
+         * retorna(nada).
+         * 
+         * Verifica se o usuário que esta realizando a ação tem permissão para
+         * editar página ou postagem. Caso não, retorna(nada).
+         *  
+         * Salva os dados do post quando a ação 'editpost' está definida no 
+         * array $_POST. 
+         * 
+         * Se o campo 'mv_slider_link_text' estiver vazio, 
+         * define o campo de metadados 'mv_slider_link_text' como 
+         * 'Adicione um texto'. Caso contrário, sanitiza a entrada e atualiza o 
+         * campo de metadados 'mv_slider_link_text'.
+         *
+         * Se o campo 'mv_slider_link_url' estiver vazio, define o campo de 
+         * metadados 'mv_slider_link_url' como '#'. Caso contrário, sanitiza a 
+         * entrada e atualiza o campo de metadados 'mv_slider_link_url'.
+         *
+         * @param int $post_id O ID do post sendo salvo.
+         * @return void
+         */
         public function save_post($post_id)
         {
+            if (isset($_POST['mv-slider-nonce'])) {
+                if (!wp_verify_nonce($_POST['mv-slider-nonce'], 'mv-slider-nonce')) {
+                    return;
+                }
+            }
+
+            if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+                return;
+            }
+
+            if (isset($_POST['post_type']) && $_POST['post_type'] == 'mv-slider') {
+                if (!current_user_can('edit_page', $post_id)) {
+                    return;
+                } else if (!current_user_can('edit_post', $post_id)) {
+                    return;
+                }
+            }
+
             if (isset($_POST['action']) && $_POST['action'] == 'editpost') {
                 if (empty($_POST['mv_slider_link_text'])) {
                     update_post_meta(
