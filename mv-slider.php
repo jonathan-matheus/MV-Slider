@@ -104,6 +104,12 @@ if (!class_exists('MV_Slider')) {
         {
         }
 
+        /**
+         * Adiciona uma página de menu para o MV Slider com as opções 
+         * especificadas.
+         *
+         * @return void
+         */
         public function add_menu()
         {
             add_menu_page(
@@ -113,6 +119,24 @@ if (!class_exists('MV_Slider')) {
                 'mv_slider_admin',
                 [$this, 'mv_slider_settings_page'],
                 'dashicons-images-alt2',
+            );
+
+            add_submenu_page(
+                'mv_slider_admin',
+                'Manage Slides',
+                'Manage Slides',
+                'manage_options',
+                'edit.php?post_type=mv-slider',
+                null
+            );
+
+            add_submenu_page(
+                'mv_slider_admin',
+                'Add New Slider',
+                'Add New Slider',
+                'manage_options',
+                'post-new.php?post_type=mv-slider',
+                null
             );
         }
 
