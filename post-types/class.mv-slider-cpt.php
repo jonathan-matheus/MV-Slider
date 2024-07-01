@@ -20,6 +20,43 @@ if (!class_exists('MV_Slider_Post_Type')) {
                 10,
                 2
             );
+
+            /**
+             * Adiciona um filtro para gerenciar as colunas da postagem.
+             * 
+             * Importante: O primeiro argumento desta função deve ser sempre
+             * 'manage_mv-slider_posts_columns', a logica do nome e 'manage_' +
+             * 'nome do tipo de postagem + '_sortable_columns' 
+             */
+            add_filter(
+                'manage_mv-slider_posts_columns',
+                [$this, 'mv_slider_cpt_columns']
+            );
+
+            /**
+             * Adiciona o conteúdo da caixa de metadados ao tipo de postagem
+             * 
+             * Importante: O primeiro argumento desta função deve ser sempre
+             * 'manage_mv-slider_posts_custom_column', a logica do nome e 
+             * 'manage_' + 'nome do tipo de postagem + '_posts_custom_column'
+             */
+            add_action(
+                'manage_mv-slider_posts_custom_column',
+                [$this, 'mv_slider_custom_columns'],
+                10
+            );
+
+            /**
+             * Adiciona a opção de ordenar as colunas da postagem.
+             * 
+             * Importante: O primeiro argumento desta função deve ser sempre
+             * 'manage_edit-mv-slider_sortable_columns', a logica do nome e 
+             * 'manage_edit_' + 'nome do tipo de postagem + '_sortable_columns'
+             */
+            add_filter(
+                'manage_edit-mv-slider_sortable_columns',
+                [$this, 'mv_slider_sortable_columns']
+            );
         }
 
         /**
@@ -56,6 +93,60 @@ if (!class_exists('MV_Slider_Post_Type')) {
                     'menu_icon' => 'dashicons-slides',
                 ]
             );
+        }
+
+        /**
+         * Registra as colunas personalizadas para o tipo de postagem 'mv-slider'.
+         *
+         * @param array $columns Array contendo as colunas existentes.
+         * @return array Colunas atualizadas com 'Link Text' e 'Link URL'.
+         */
+        public function mv_slider_cpt_columns($columns)
+        {
+            $columns['mv_slider_link_text'] = esc_html__('Link Text', 'mv-slider');
+            $columns['mv_slider_link_url'] = esc_html__('Link URL', 'mv-slider');
+            return $columns;
+        }
+
+        /**
+         * Exibe o conteúdo das colunas personalizadas para o tipo de post 
+         * 'mv-slider'.
+         *
+         * @param string $column O nome da coluna.
+         * @return void
+         */
+        public function mv_slider_custom_columns($column)
+        {
+            if ($column == 'mv_slider_link_text') {
+                echo esc_html(
+                    get_post_meta(
+                        get_the_ID(),
+                        'mv_slider_link_text',
+                        true
+                    )
+                );
+            } elseif ($column == 'mv_slider_link_url') {
+                echo esc_url(
+                    get_post_meta(
+                        get_the_ID(),
+                        'mv_slider_link_url',
+                        true
+                    )
+                );
+            }
+        }
+
+        /**
+         * Adiciona colunas ordenáveis ao tipo de post 'mv_slider'.
+         *
+         * @param array $columns As colunas atuais.
+         * @return array As colunas atualizadas.
+         */
+        public function mv_slider_sortable_columns($columns)
+        {
+            $columns['mv_slider_link_text'] = 'mv_slider_link_text';
+            $columns['mv_slider_link_url'] = 'mv_slider_link_url';
+            return $columns;
         }
 
         /**
