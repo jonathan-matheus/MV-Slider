@@ -11,6 +11,7 @@ Essa div com a classe wrap e uma div padrão de toda página de plugin
         <?php
         settings_fields('mv_slider_group');
         do_settings_sections('mv_slider_page1');
+        do_settings_sections('mv_slider_page2');
         submit_button('Save Settings');
         ?>
     </form>
