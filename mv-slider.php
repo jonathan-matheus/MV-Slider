@@ -30,132 +30,139 @@ along with MV Slider. If not, see http://www.gnu.org/licenses/gpl-2.0.html
 
 // Caso o código esteja sendo executado diretamente, aborte a execução
 if (!defined('ABSPATH')) {
-    exit;
+  exit;
 }
 
 /**
  * Classe principal do plugin com seu construtor
  */
 if (!class_exists('MV_Slider')) {
-    class MV_Slider
+  class MV_Slider
+  {
+    function __construct()
     {
-        function __construct()
-        {
-            // Define as constantes para o plugin
-            $this->define_constants();
+      // Define as constantes para o plugin
+      $this->define_constants();
 
-            add_action('admin_menu', [$this, 'add_menu']);
+      add_action('admin_menu', [$this, 'add_menu']);
 
-            require_once MV_SLIDER_PATH . 'post-types/class.mv-slider-cpt.php';
-            $MV_Slider_Post_Type = new MV_Slider_Post_Type();
+      require_once MV_SLIDER_PATH . 'post-types/class.mv-slider-cpt.php';
+      $MV_Slider_Post_Type = new MV_Slider_Post_Type();
 
-            require_once MV_SLIDER_PATH . 'class.mv-slider-settings.php';
-            $MV_Slider_Settings = new MV_Slider_Settings();
-        }
-
-        /**
-         * Define as constantes do plugin.
-         *
-         * Esta função define três constantes:
-         * - MV_SLIDER_PATH: O caminho absoluto do plugin.
-         * - MV_SLIDER_URL: O URL absoluto do plugin.
-         * - MV_SLIDER_VERSION: A versão do plugin.
-         *
-         * @return void
-         */
-        public function define_constants()
-        {
-            // Constante para o caminho absoluto do plugin
-            define('MV_SLIDER_PATH', plugin_dir_path(__FILE__));
-
-            // Constante para o caminho absoluto do URL do plugin
-            define('MV_SLIDER_URL', plugin_dir_url(__FILE__));
-
-            // Constante que define a versão do plugin
-            define('MV_SLIDER_VERSION', '1.0.0');
-        }
-
-        /**
-         * Ativa o plugin atualizando a opção de regras de reescrita.
-         *
-         * Esta função atualiza a opção 'rewrite_rules' definindo-a como uma 
-         * string vazia.
-         *
-         * @return void
-         */
-        public static function activate()
-        {
-            update_option('rewrite_rules', '');
-        }
-
-        /**
-         * Desativa o plugin, limpando as regras de redirecionamento.
-         *
-         * Esta função é responsável por desativar o plugin, limpando as regras 
-         * de redirecionamento. Certifica que quaisquer alterações feitas nas 
-         * regras de redirecionamento durante a ativação são limpas e aplicadas.
-         *
-         * @return void
-         */
-        public static function deactivate()
-        {
-            flush_rewrite_rules();
-            unregister_post_type('mv-slider');
-        }
-
-        public static function uninstall()
-        {
-        }
-
-        /**
-         * Adiciona uma página de menu para o MV Slider com as opções 
-         * especificadas.
-         *
-         * @return void
-         */
-        public function add_menu()
-        {
-            add_menu_page(
-                'MV Slider Options',
-                'MV Slider',
-                'manage_options',
-                'mv_slider_admin',
-                [$this, 'mv_slider_settings_page'],
-                'dashicons-images-alt2',
-            );
-
-            add_submenu_page(
-                'mv_slider_admin',
-                'Manage Slides',
-                'Manage Slides',
-                'manage_options',
-                'edit.php?post_type=mv-slider',
-                null
-            );
-
-            add_submenu_page(
-                'mv_slider_admin',
-                'Add New Slider',
-                'Add New Slider',
-                'manage_options',
-                'post-new.php?post_type=mv-slider',
-                null
-            );
-        }
-
-        public function mv_slider_settings_page()
-        {
-            require_once MV_SLIDER_PATH . 'views/settings-page.php';
-        }
+      require_once MV_SLIDER_PATH . 'class.mv-slider-settings.php';
+      $MV_Slider_Settings = new MV_Slider_Settings();
     }
+
+    /**
+     * Define as constantes do plugin.
+     *
+     * Esta função define três constantes:
+     * - MV_SLIDER_PATH: O caminho absoluto do plugin.
+     * - MV_SLIDER_URL: O URL absoluto do plugin.
+     * - MV_SLIDER_VERSION: A versão do plugin.
+     *
+     * @return void
+     */
+    public function define_constants()
+    {
+      // Constante para o caminho absoluto do plugin
+      define('MV_SLIDER_PATH', plugin_dir_path(__FILE__));
+
+      // Constante para o caminho absoluto do URL do plugin
+      define('MV_SLIDER_URL', plugin_dir_url(__FILE__));
+
+      // Constante que define a versão do plugin
+      define('MV_SLIDER_VERSION', '1.0.0');
+    }
+
+    /**
+     * Ativa o plugin atualizando a opção de regras de reescrita.
+     *
+     * Esta função atualiza a opção 'rewrite_rules' definindo-a como uma 
+     * string vazia.
+     *
+     * @return void
+     */
+    public static function activate()
+    {
+      update_option('rewrite_rules', '');
+    }
+
+    /**
+     * Desativa o plugin, limpando as regras de redirecionamento.
+     *
+     * Esta função é responsável por desativar o plugin, limpando as regras 
+     * de redirecionamento. Certifica que quaisquer alterações feitas nas 
+     * regras de redirecionamento durante a ativação são limpas e aplicadas.
+     *
+     * @return void
+     */
+    public static function deactivate()
+    {
+      flush_rewrite_rules();
+      unregister_post_type('mv-slider');
+    }
+
+    public static function uninstall() {}
+
+    /**
+     * Adiciona uma página de menu para o MV Slider com as opções 
+     * especificadas.
+     *
+     * @return void
+     */
+    public function add_menu()
+    {
+      add_menu_page(
+        'MV Slider Options',
+        'MV Slider',
+        'manage_options',
+        'mv_slider_admin',
+        [$this, 'mv_slider_settings_page'],
+        'dashicons-images-alt2',
+      );
+
+      add_submenu_page(
+        'mv_slider_admin',
+        'Manage Slides',
+        'Manage Slides',
+        'manage_options',
+        'edit.php?post_type=mv-slider',
+        null
+      );
+
+      add_submenu_page(
+        'mv_slider_admin',
+        'Add New Slider',
+        'Add New Slider',
+        'manage_options',
+        'post-new.php?post_type=mv-slider',
+        null
+      );
+    }
+
+    public function mv_slider_settings_page()
+    {
+      if (!current_user_can('manage_options')) {
+        return;
+      }
+
+      if(isset($_GET['settings-updated'])){
+        add_settings_error('mv_slider_options', 'mv_slider_message', 'Settings saved', 'success');
+      }
+      settings_errors('mv_slider_options');
+
+      require_once MV_SLIDER_PATH . 'views/settings-page.php';
+    }
+  }
 }
 
 /**
  * Instancie a classe MV Slider
  */
 if (class_exists('MV_Slider')) {
-    register_activation_hook(__FILE__, ['MV_Slider', 'activate']);
-    register_deactivation_hook(__FILE__, ['MV_Slider', 'deactivate']);
-    register_uninstall_hook(__FILE__, ['MV_Slider', 'uninstall']);
-    $mv_slider = new MV_Slider();
+  register_activation_hook(__FILE__, ['MV_Slider', 'activate']);
+  register_deactivation_hook(__FILE__, ['MV_Slider', 'deactivate']);
+  register_uninstall_hook(__FILE__, ['MV_Slider', 'uninstall']);
+  $mv_slider = new MV_Slider();
 }
