@@ -51,6 +51,9 @@ if (!class_exists('MV_Slider')) {
 
       require_once MV_SLIDER_PATH . 'class.mv-slider-settings.php';
       $MV_Slider_Settings = new MV_Slider_Settings();
+
+      require_once MV_SLIDER_PATH . 'shortcodes/class.mv-slider-shortcode.php';
+      $MV_Slider_Shortcode = new MV_Slider_Shortcode();
     }
 
     /**
@@ -103,7 +106,9 @@ if (!class_exists('MV_Slider')) {
       unregister_post_type('mv-slider');
     }
 
-    public static function uninstall() {}
+    public static function uninstall()
+    {
+    }
 
     /**
      * Adiciona uma página de menu para o MV Slider com as opções 
@@ -147,7 +152,7 @@ if (!class_exists('MV_Slider')) {
         return;
       }
 
-      if(isset($_GET['settings-updated'])){
+      if (isset($_GET['settings-updated'])) {
         add_settings_error('mv_slider_options', 'mv_slider_message', 'Settings saved', 'success');
       }
       settings_errors('mv_slider_options');
