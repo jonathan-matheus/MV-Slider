@@ -5,17 +5,20 @@ if (!class_exists('MV_Slider_Post_Type')) {
         function __construct()
         {
             add_action('init', [
-                $this, 'create_post_type'
+                $this,
+                'create_post_type'
             ]);
 
             add_action('add_meta_boxes', [
-                $this, 'add_meta_boxes'
+                $this,
+                'add_meta_boxes'
             ]);
 
             add_action(
                 'save_post',
                 [
-                    $this, 'save_post'
+                    $this,
+                    'save_post'
                 ],
                 10,
                 2
@@ -67,11 +70,11 @@ if (!class_exists('MV_Slider_Post_Type')) {
             register_post_type(
                 'mv-slider',
                 [
-                    'label' => 'Slider',
-                    'description' => 'Sliders',
+                    'label' => __('Slider', 'mv-slider'),
+                    'description' => __('Sliders', 'mv-slider'),
                     'labels' => [
-                        'name' => 'Sliders',
-                        'singular_name' => 'Slider',
+                        'name' => __('Sliders', 'mv-slider'),
+                        'singular_name' => __('Slider', 'mv-slider'),
                     ],
                     'public' => true,
                     'supports' => [
@@ -157,7 +160,7 @@ if (!class_exists('MV_Slider_Post_Type')) {
         {
             add_meta_box(
                 'mv_slider_meta_box',
-                'Link Options',
+                __('Link Options'),
                 [$this, 'add_inner_meta_boxes'],
                 'mv-slider',
                 'normal',
@@ -226,7 +229,7 @@ if (!class_exists('MV_Slider_Post_Type')) {
                     update_post_meta(
                         $post_id,
                         'mv_slider_link_text',
-                        'Add some text'
+                        __('Add some text')
                     );
                 } else {
                     update_post_meta(

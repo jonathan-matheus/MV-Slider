@@ -44,6 +44,8 @@ if (!class_exists('MV_Slider')) {
       // Define as constantes para o plugin
       $this->define_constants();
 
+      $this->load_texteditor();
+
       require_once MV_SLIDER_PATH . 'functions/functions.php';
 
       add_action('admin_menu', [$this, 'add_menu']);
@@ -115,6 +117,15 @@ if (!class_exists('MV_Slider')) {
     {
     }
 
+    public function load_texteditor()
+    {
+      load_plugin_textdomain(
+        'mv-slider',
+        false,
+        dirname(plugin_basename(__FILE__)) . '/languages/'
+      );
+    }
+
     /**
      * Adiciona uma página de menu para o MV Slider com as opções 
      * especificadas.
@@ -124,7 +135,7 @@ if (!class_exists('MV_Slider')) {
     public function add_menu()
     {
       add_menu_page(
-        'MV Slider Options',
+        __('MV Slider Options', 'mv-slider'),
         'MV Slider',
         'manage_options',
         'mv_slider_admin',
@@ -134,7 +145,7 @@ if (!class_exists('MV_Slider')) {
 
       add_submenu_page(
         'mv_slider_admin',
-        'Manage Slides',
+        __('Manage Slides', 'mv-slider'),
         'Manage Slides',
         'manage_options',
         'edit.php?post_type=mv-slider',
@@ -143,8 +154,8 @@ if (!class_exists('MV_Slider')) {
 
       add_submenu_page(
         'mv_slider_admin',
-        'Add New Slider',
-        'Add New Slider',
+        __('Add New Slider', 'mv-slider'),
+        __('Add New Slider', 'mv-slider'),
         'manage_options',
         'post-new.php?post_type=mv-slider',
         null
