@@ -9,11 +9,11 @@ Essa div com a classe wrap e uma div padrão de toda página de plugin
     <h2 class="nav-tab-wrapper">
         <a href="?page=mv_slider_admin&tab=main_options"
             class="nav-tab <?php echo $active_tab === 'main_options' ? 'nav-tab-active' : ''; ?>">
-            <?php _e('Main Options', 'mv-slider'); ?>
+            <?php esc_html_e('Main Options', 'mv-slider'); ?>
         </a>
         <a href="?page=mv_slider_admin&tab=additional_options"
             class="nav-tab <?php echo $active_tab === 'additional_options' ? 'nav-tab-active' : ''; ?>">
-            <?php _e('Additional Options', 'mv-slider'); ?>
+            <?php esc_html_e('Additional Options', 'mv-slider'); ?>
         </a>
     </h2>
     <!-- 
@@ -28,7 +28,7 @@ Essa div com a classe wrap e uma div padrão de toda página de plugin
         } else {
             settings_fields('mv_slider_group');
             do_settings_sections('mv_slider_page2');
-            submit_button(__('Save Settings', 'mv-slider'));
+            submit_button(esc_html__('Save Settings', 'mv-slider'));
         }
         ?>
     </form>

@@ -70,11 +70,11 @@ if (!class_exists('MV_Slider_Post_Type')) {
             register_post_type(
                 'mv-slider',
                 [
-                    'label' => __('Slider', 'mv-slider'),
-                    'description' => __('Sliders', 'mv-slider'),
+                    'label' => esc_html__('Slider', 'mv-slider'),
+                    'description' => esc_html__('Sliders', 'mv-slider'),
                     'labels' => [
                         'name' => __('Sliders', 'mv-slider'),
-                        'singular_name' => __('Slider', 'mv-slider'),
+                        'singular_name' => esc_html__('Slider', 'mv-slider'),
                     ],
                     'public' => true,
                     'supports' => [
@@ -160,7 +160,7 @@ if (!class_exists('MV_Slider_Post_Type')) {
         {
             add_meta_box(
                 'mv_slider_meta_box',
-                __('Link Options'),
+                esc_html__('Link Options'),
                 [$this, 'add_inner_meta_boxes'],
                 'mv-slider',
                 'normal',
@@ -229,7 +229,7 @@ if (!class_exists('MV_Slider_Post_Type')) {
                     update_post_meta(
                         $post_id,
                         'mv_slider_link_text',
-                        __('Add some text')
+                        esc_html__('Add some text')
                     );
                 } else {
                     update_post_meta(
