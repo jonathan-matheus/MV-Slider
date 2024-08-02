@@ -11,6 +11,11 @@ Este é um plugin de slider simples e básico, mas que cumpre eficientemente sua
 ## Índice
 
 - [Funcionalidades](#funcionalidades)
+- [Demonstração](#demonstração)
+- [Tecnologias](#tecnologias)
+- [Abrir e rodar o projeto](#abrir-e-rodar-o-projeto)
+- [Como contribuir](#como-contribuir)
+- [Autor](#autor)
 
 ## Funcionalidades
 
